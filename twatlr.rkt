@@ -26,6 +26,5 @@
 
 (provide/contract
   [get-thread (string? . -> . list?)]
-  [get-tweet (string? . -> . hash-eq?)]
-  [tweet-url (string? . -> . url?)])
+  [get-tweet (string? . -> . hash-eq?)])
 

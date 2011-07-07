@@ -9,6 +9,3 @@ Easy Twitter threads.
 
     (get-tweet tweet-id) → hash-eq?
       tweet-id : string?
-
-    (tweet-url tweet-id) → url?
-      tweet-id : string?
