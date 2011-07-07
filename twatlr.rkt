@@ -1,6 +1,7 @@
 #lang racket
 (require net/url
-         (planet dherman/json:3:0))
+         "vendor/json/main.ss") ; Vendored until fixed!
+         ; (planet dherman/json:3:0))
 
 (define (get-thread tweet-id)
   (let parent-tweet ([tweet (get-tweet tweet-id)] [a empty])
