@@ -5,8 +5,9 @@
 
 (define (get-thread tweet-id)
   (let parent-tweet ([tweet (get-tweet tweet-id)] [a empty])
-    (cond [(eq? #\nul (hash-ref tweet 'in_reply_to_status_id_str)) (append a (list tweet))]
-          [else (parent-tweet (get-tweet (hash-ref tweet 'in_reply_to_status_id_str)) (append a (list tweet)))])))
+    (let ([reply-id (hash-ref tweet 'in_reply_to_status_id_str #\nul)])
+      (cond [(eq? #\nul reply-id)                    (append a (list tweet))]
+            [else (parent-tweet (get-tweet reply-id) (append a (list tweet)))]))))
 
 (define (get-tweet tweet-id)
   (read-json (get-pure-port (tweet-url tweet-id))))
