@@ -10,15 +10,15 @@
             [else (parent-tweet (get-tweet reply-id) (append a (list tweet)))]))))
 
 (define (get-tweet tweet-id)
-  (read-json (get-pure-port (tweet-url tweet-id))))
+  (read-json (get-pure-port (tweet-url tweet-id) (list (format "Authorization: Bearer ~a" (getenv "BEARER_TOKEN"))))))
 
 (define (tweet-url tweet-id)
-  (make-url "http"
+  (make-url "https"
             #f
             "api.twitter.com"
             #f
             #t
-            (list (make-path/param "1" empty)
+            (list (make-path/param "1.1" empty)
                   (make-path/param "statuses" empty)
                   (make-path/param "show" empty)
                   (make-path/param (string-append tweet-id ".json") empty))
