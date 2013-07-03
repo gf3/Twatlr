@@ -17,17 +17,17 @@
   (read-json (open-input-bytes (let-values ([(jsbt cas) (memcached-get mp (string->bytes/utf-8 tweet-id))])
     (if jsbt
       jsbt
-      (let ([tweet-bytes (port->bytes (get-pure-port (tweet-url tweet-id)))])
+      (let ([tweet-bytes (port->bytes (get-pure-port (tweet-url tweet-id) (list (format "Authorization: Bearer ~a" (getenv "BEARER_TOKEN")))))])
         (memcached-set! mp (string->bytes/utf-8 tweet-id) tweet-bytes)
         tweet-bytes))))))
 
 (define (tweet-url tweet-id)
-  (make-url "http"
+  (make-url "https"
             #f
             "api.twitter.com"
             #f
             #t
-            (list (make-path/param "1" empty)
+            (list (make-path/param "1.1" empty)
                   (make-path/param "statuses" empty)
                   (make-path/param "show" empty)
                   (make-path/param (string-append tweet-id ".json") empty))
